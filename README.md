@@ -273,4 +273,4 @@ We are building this with a worker-first mindset: low friction, transparent rule
 
 ---
 
-GigSwift: built for the week-to-week reality of delivery workers.
+**GigSwift**: built for the week-to-week reality of delivery workers.

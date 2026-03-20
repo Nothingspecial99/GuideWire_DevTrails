@@ -1,4 +1,4 @@
-# GigSwift
+# **GigSwift**
 ### AI-Powered Parametric Income Protection for Food Delivery Workers in India
 
 > A rainy day should not become a no-income day.
@@ -125,33 +125,6 @@ Fraud is a genuine operational risk in parametric systems because payouts are au
 
 ---
 
-## Adversarial Defense Architecture
-
-This section addresses the coordinated fraud scenario specifically. Parametric insurance at scale is vulnerable to organised rings attempting to game the trigger system. Our defense operates across four vectors.
-
-### 1. Hardware Attestation and Device Integrity
-
-The system does not rely on API checks alone. Device-level attestation verifies that the app is running on genuine physical hardware. Rooted devices, emulators, and devices running mock location modules are automatically assigned a high-risk flag and excluded from automated payouts. This cuts off phone farm operations at the device layer before any claim logic runs.
-
-### 2. Spatial-Temporal Physics Validation
-
-Every location ping is run through an impossible travel check. If a device reports a position in a disruption zone that would require exceeding a motorcycle's realistic urban speed to reach from its previous reported position, the claim is flagged. Genuine workers who are sheltering show location jitter consistent with stationary or slow-moving behaviour. Spoofed data tends to appear artificially clean or involves instant position jumps that violate physical movement constraints.
-
-### 3. Cross-Sensor Fusion
-
-GPS data alone is not sufficient for location validation. GigSwift cross-references GPS coordinates with on-device motion sensor data, specifically the accelerometer and gyroscope. If a device reports movement at 30 kmph via GPS while the accelerometer records zero vibration and no rotational change, the location is confirmed as a software simulation and the claim is blocked.
-
-### 4. Graph-Based Ring Detection
-
-Individual fraud checks are not enough to catch coordinated networks of fifty or five hundred accounts. GigSwift uses graph analytics to detect ring topology based on three signals:
-
-- **Shared infrastructure:** Multiple accounts sharing the same WiFi SSID, IP address range, or device fingerprint cluster.
-- **Behavioural synchronisation:** Near-identical timing patterns for policy purchase and claim activation across a cluster of accounts that otherwise appear unrelated.
-- **Payout consolidation:** Multiple independently registered accounts funnelling payouts into a small set of UPI handles or bank accounts, indicating mule account structures.
-
-Accounts flagged by graph analysis are held for SIU review rather than auto-rejected, because some clusters reflect legitimate shared housing or community group signups. The flag triggers human review, not automatic disqualification.
-
----
 
 ## Platform Architecture
 
@@ -221,6 +194,34 @@ Worker receives notification with payout confirmation and event summary
 - Worker dashboard: active coverage, earnings protected, claim history
 - Admin dashboard: loss ratios, zone-level disruption analytics, SIU review queue
 - Final pitch deck and video submission
+
+---
+
+# Adversarial Defense & Anti-Spoofing Strategy
+
+This section addresses the coordinated fraud scenario specifically. Parametric insurance at scale is vulnerable to organised rings attempting to game the trigger system. Our defense operates across four vectors.
+
+### 1. Hardware Attestation and Device Integrity
+
+The system does not rely on API checks alone. Device-level attestation verifies that the app is running on genuine physical hardware. Rooted devices, emulators, and devices running mock location modules are automatically assigned a high-risk flag and excluded from automated payouts. This cuts off phone farm operations at the device layer before any claim logic runs.
+
+### 2. Spatial-Temporal Physics Validation
+
+Every location ping is run through an impossible travel check. If a device reports a position in a disruption zone that would require exceeding a motorcycle's realistic urban speed to reach from its previous reported position, the claim is flagged. Genuine workers who are sheltering show location jitter consistent with stationary or slow-moving behaviour. Spoofed data tends to appear artificially clean or involves instant position jumps that violate physical movement constraints.
+
+### 3. Cross-Sensor Fusion
+
+GPS data alone is not sufficient for location validation. GigSwift cross-references GPS coordinates with on-device motion sensor data, specifically the accelerometer and gyroscope. If a device reports movement at 30 kmph via GPS while the accelerometer records zero vibration and no rotational change, the location is confirmed as a software simulation and the claim is blocked.
+
+### 4. Graph-Based Ring Detection
+
+Individual fraud checks are not enough to catch coordinated networks of fifty or five hundred accounts. GigSwift uses graph analytics to detect ring topology based on three signals:
+
+- **Shared infrastructure:** Multiple accounts sharing the same WiFi SSID, IP address range, or device fingerprint cluster.
+- **Behavioural synchronisation:** Near-identical timing patterns for policy purchase and claim activation across a cluster of accounts that otherwise appear unrelated.
+- **Payout consolidation:** Multiple independently registered accounts funnelling payouts into a small set of UPI handles or bank accounts, indicating mule account structures.
+
+Accounts flagged by graph analysis are held for SIU review rather than auto-rejected, because some clusters reflect legitimate shared housing or community group signups. The flag triggers human review, not automatic disqualification.
 
 ---
 

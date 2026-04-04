@@ -246,3 +246,54 @@ For delivery workers who are already managing tight weekly budgets, a missed pay
 ---
 
 *GigSwift is built for the week-to-week reality of delivery workers. The goal is simple: predictable support when disruptions happen, with zero paperwork and no delays.*
+
+---
+
+## MVP Implementation (Now in this Repository)
+
+The project now includes a runnable web-first MVP aligned to the problem statement and plan.
+
+### What is implemented
+
+- Worker onboarding (persona-focused registration for food delivery partner)
+- AI-style risk scoring (zone-level) and dynamic weekly premium quote
+- Weekly plan activation (Basic, Standard, Pro)
+- Parametric trigger processing (rain, heat, flood, AQI, curfew/strike)
+- Zero-touch automated claim initiation after trigger validation
+- Fraud checks (duplicate prevention, device attestation gate, impossible travel review flag)
+- Simulated instant payout processing (Razorpay sandbox style)
+- Worker dashboard (coverage status, claims, earnings protected)
+- Admin dashboard (premiums, payouts, loss ratio, claim status mix, zone analytics)
+
+### Project structure
+
+- `backend/` FastAPI API service
+- `frontend/` React + Vite web app
+
+### Backend quick start
+
+```bash
+cd backend
+python -m venv .venv
+source .venv/bin/activate
+pip install -r requirements.txt
+uvicorn main:app --reload --port 8000
+```
+
+### Frontend quick start
+
+```bash
+cd frontend
+npm install
+npm run dev
+```
+
+Frontend runs on `http://localhost:5173` and expects backend on `http://localhost:8000`.
+
+### Demo flow
+
+1. Open the web app and click `Load Demo Worker` or register a new worker.
+2. Review generated risk score and weekly premium options.
+3. Activate a weekly policy.
+4. Trigger a disruption event from the simulation panel.
+5. Observe auto-claims, fraud gate behavior, payouts, and dashboard metrics.

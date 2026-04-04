@@ -1,7 +1,10 @@
 from datetime import timedelta
+from pathlib import Path
 
 from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.staticfiles import StaticFiles
+from fastapi.responses import FileResponse
 
 from app.models import (
     Claim,
@@ -273,3 +276,19 @@ def seed_demo() -> dict:
     push_location(LocationPing(worker_id=worker.id, latitude=18.5209, longitude=73.8571, captured_at=store.now()))
 
     return {"message": "Seeded", "worker_id": worker.id}
+
+
+# Serve Vite-built frontend as single-service deployment.
+FRONTEND_DIST = Path(__file__).parent.parent / "frontend" / "dist"
+
+if FRONTEND_DIST.exists():
+    app.mount("/assets", StaticFiles(directory=str(FRONTEND_DIST / "assets")), name="assets")
+
+
+@app.get("/{path_name:path}")
+async def serve_spa(path_name: str):
+    """Serve SPA index.html for client-side routing. Only called if path doesn't match /api or /assets."""
+    index_path = FRONTEND_DIST / "index.html"
+    if index_path.exists():
+        return FileResponse(index_path)
+    raise HTTPException(status_code=404, detail="Not found")
